@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<head>
+    <title>Atio</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'" >
+<div>
+    <a class="btn btn-lg btn-primary m-3"
+       href="http://localhost:8080/human"
+       role="button">Create / Edit human</a>
+<br>
+    <a class="btn btn-lg btn-primary m-3"
+       href="http://localhost:8080/human/all"
+       role="button">Get all people</a>
+</div>
+</body>
+</html>

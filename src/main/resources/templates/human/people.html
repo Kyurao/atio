@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<head>
+    <title>Atio</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> ID </th>
+        <th> Name </th>
+        <th> Age </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${people.empty}">
+        <td colspan="2"> No People Available </td>
+    </tr>
+    <tr th:each="human : ${people}">
+        <td><span th:text="${human.id}"> ID </span></td>
+        <td><span th:text="${human.name}"> Name </span></td>
+        <td><span th:text="${human.age}"> Age </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
