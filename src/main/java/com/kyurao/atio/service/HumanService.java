@@ -1,6 +1,7 @@
 package com.kyurao.atio.service;
 
 import com.kyurao.atio.domain.Human;
+import com.kyurao.atio.domain.Lot;
 import com.kyurao.atio.repository.HumanRepository;
 import org.springframework.stereotype.Service;
 

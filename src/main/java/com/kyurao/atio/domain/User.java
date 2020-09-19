@@ -1,29 +1,28 @@
 package com.kyurao.atio.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Getter
+@Setter
 @Entity
+@Table(name = "USERS")
 public class User {
 
     @Id
     private Long id;
 
+    @Column
     private String name;
 
-    public Long getId() {
-        return id;
-    }
+    private String password;
 
-    public String getName() {
-        return name;
-    }
+    private Account account;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private ContactInfo contactInfo;
 }
