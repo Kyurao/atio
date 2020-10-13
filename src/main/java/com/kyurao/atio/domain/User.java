@@ -20,8 +20,6 @@ public class User {
     @Column
     private String name;
 
-    private String password;
-
     private Account account;
 
     private ContactInfo contactInfo;
