@@ -1,4 +1,4 @@
-package com.kyurao.atio.domain.enums;
+package com.kyurao.atio.domain.lot.enums;
 
 public enum LotStatus {
     ACTIVE,
