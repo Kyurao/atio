@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="parts/fragments :: head"></head>
+
+<body>
+<!--Top menu-->
+<div th:replace="parts/fragments :: top-menu"></div>
+<div class="container bg-white mb-5">
+    <div class="row">
+        <div class="col-md-10 border-left mt-1">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Lot's Edit</h4>
+            </div>
+            <form class="mt-2" th:action="@{/add-lot}" th:object="${lot}" method="post">
+                <div class="col-md-6">
+                    <label class="labels">Title</label>
+                    <input th:field="*{title}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''"
+                           type="text" name="title" placeholder="Toothbrush">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{title}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Description</label>
+                    <input th:field="*{description}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"
+                           type="text" name="description"
+                           placeholder="A small brush with a long handle, used for cleaning the teeth">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{description}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Lot's State</label>
+                    <div class="col-md-6">
+                        <input type="radio" th:field="*{state}" th:value="NEW" checked="checked">
+                        <label th:for="${#ids.prev('state')}">New</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="radio" th:field="*{state}" th:value="LIKE_NEW" checked="checked">
+                        <label th:for="${#ids.prev('state')}">Like New</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="radio" th:field="*{state}" th:value="USED" checked="checked">
+                        <label th:for="${#ids.prev('state')}">Used</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Start Price</label>
+                    <input th:field="*{startPrice}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('startPrice')} ? 'is-invalid' : ''"
+                           type="number" min="0.00" max="100000.00" step="any" name="startPrice" placeholder="5.00">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{startPrice}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Buy Now</label>
+                    <input th:field="*{buyNow}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('buyNow')} ? 'is-invalid' : ''"
+                           type="number" min="0.00" max="100000.00" step="any" name="buyNow" placeholder="20.00">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{buyNow}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Country</label>
+                    <input th:field="*{country}"
+                           class="form-control form-control-sm"
+                           type="text" name="country" placeholder="Ukraine">
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">State/Region</label>
+                    <input th:field="*{region}"
+                           class="form-control form-control-sm"
+                           type="text" name="region" placeholder="Lviv region">
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">City</label>
+                    <input th:field="*{city}"
+                           class="form-control form-control-sm"
+                           type="text" name="city" placeholder="Lviv">
+                </div>
+                <div class="mt-4 col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-info float-left">Save Lot</button>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="/" class="btn btn-warning profile-button float-right">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

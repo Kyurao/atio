@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<head th:replace="parts/fragments :: head"></head>
+
+<body>
+<!--Top menu-->
+<div th:replace="parts/fragments :: top-menu"></div>
+
+<div class="container">
+    <div class="card mt-sm-3" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+        <form th:action="@{/register}" th:object="${registrationReq}" method="post" class="uk-form-stacked">
+            <div class="card-header bg-info" style="color: white">Registration</div>
+            <div class="card-body" th:if="${email}">
+                <div class="text-center p-3 border rounded">
+                    <span class="text-dark" th:text="${'Confirm your registration on: ' + email}"></span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="pt-3">
+                    <label>Email</label>
+                    <input th:field="*{email}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                           type="text" name="email" placeholder="email@example.com">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{email}"></p>
+                        </li>
+                    </ul>
+                </div>
+            <div class="pt-3">
+                <label>Password</label>
+                <input th:field="*{firstPassword}"
+                       class="form-control form-control-sm"
+                       th:classappend="${#fields.hasErrors('firstPassword')} ? 'is-invalid' : ''"
+                       type="password" name="firstPassword" placeholder="****">
+                <ul class="invalid-feedback" th:each="error: ${#fields.errors('firstPassword')}">
+                    <li th:each="message : ${error.split(',\n')}">
+                        <p th:text="${message}"></p>
+                    </li>
+                </ul>
+            </div>
+                <div class="pt-3">
+                    <label>Confirm password</label>
+                    <input th:field="*{secondPassword}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('secondPassword')} ? 'is-invalid' : ''"
+                           type="password" name="secondPassword" placeholder="****">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{secondPassword}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pt-3">
+                    <label>Your name</label>
+                    <input th:field="*{name}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                           type="text" name="name" placeholder="John Doe">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{name}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="/login" class="btn btn btn-outline-info">Log in</a>
+
+                <button type="submit" class="btn btn-info float-right">Register</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

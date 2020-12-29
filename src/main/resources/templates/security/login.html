@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<head th:replace="parts/fragments :: head"></head>
+
+<body>
+<!--Top menu-->
+<div th:replace="parts/fragments :: top-menu"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 pt-sm-4">
+                <form method="post" th:action="@{/login}">
+                    <div class="card" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+                        <div class="card-header bg-info" style="color: white;">Login to Atio</div>
+                        <div class="card-body" th:if="${param.error}">
+                            <p class="card-text text-danger">Incorrect login or password, please try again.</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="username">Login</label>
+                                <input id="username" type="text" name="username" class="form-control form-control-sm"
+                                       placeholder="Your username or login">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input id="password" type="password" name="password" class="form-control form-control-sm"
+                                       placeholder="Your password">
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="#" th:href="@{/register}" class="btn btn-outline-info">Registration</a>
+
+                            <button type="submit" class="btn btn-info float-right">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

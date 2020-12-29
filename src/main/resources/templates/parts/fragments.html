@@ -1,0 +1,64 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--Head tag-->
+<head th:fragment="head">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title th:text="${#strings.defaultString(title,'My Awesome Atio')}">Atio</title>
+
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+</head>
+
+<div th:fragment="top-menu">
+    <nav class="navbar navbar-expand-md navbar-light bg-info sticky-top mb-3">
+        <a class="navbar-brand" th:href="@{/}" >
+            <img src="#" th:src="@{img/logo.png}" width="200" height="80" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="navbar-nav mr-auto">
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light h4" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin panel
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Link 1</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Link 1</a>
+                    </div>
+                </li>
+            </ul>
+
+            <a sec:authorize="isAnonymous()" class="btn btn-sm btn-light" role="button" th:href="@{/login}">Log in</a>
+            <a class="nav-link text-light " th:href="@{#}">About Us</a>
+            <div sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light mr-2" id="formMenu" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:href="@{#}"
+                   th:text="${#authentication.getName()}">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" th:href="@{/profile}">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:href="@{/my-lots}">My lots</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="text-center">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="btn btn-danger" type="submit">Sign Out</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+</html>

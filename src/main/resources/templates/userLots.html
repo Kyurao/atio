@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="parts/fragments :: head"></head>
+
+<body>
+<!--Top menu-->
+<div th:replace="parts/fragments :: top-menu"></div>
+<div class="container m-2">
+
+    <div>
+        <a class="btn btn-primary bg-info m-2" th:href="@{/add-lot}" role="button">New Lot</a>
+    </div>
+    <div>Here will be your lots</div>
+</div>
+</body>
+</html>

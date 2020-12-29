@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="parts/fragments :: head"></head>
+
+<body>
+<!--Top menu-->
+<div th:replace="parts/fragments :: top-menu"></div>
+
+<div class="container bg-white mb-5">
+    <div class="row">
+        <div class="col-md-2 border-right">
+            <div class="d-flex flex-column align-items-center text-center mt-1">
+                <img class="rounded-circle" width="150px" height="150px" src="#" th:src="@{img/sobaka.png}">
+                <span class="font-weight-bold mt-1">Some text</span>
+            </div>
+        </div>
+        <div class="col-md-10 border-left mt-1">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Profile Edit</h4>
+            </div>
+            <form class="mt-2" th:action="@{/profile}" th:object="${profile}" method="post">
+                <div class="col-md-6">
+                    <label class="labels">Name</label>
+                    <input th:field="*{name}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                           type="text" name="name" placeholder="John Doe">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{name}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Phone Number</label>
+                    <input th:field="*{phoneNumber}"
+                           class="form-control form-control-sm"
+                           th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid' : ''"
+                           type="text" name="phoneNumber" placeholder="000-000-0000">
+                    <ul class="invalid-feedback">
+                        <li>
+                            <p th:errors="*{phoneNumber}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">Country</label>
+                    <input th:field="*{country}"
+                           class="form-control form-control-sm"
+                           type="text" name="country" placeholder="Ukraine">
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">State/Region</label>
+                    <input th:field="*{region}"
+                           class="form-control form-control-sm"
+                           type="text" name="region" placeholder="Lviv region">
+                </div>
+                <div class="col-md-6">
+                    <label class="labels">City</label>
+                    <input th:field="*{city}"
+                           class="form-control form-control-sm"
+                           type="text" name="city" placeholder="Lviv">
+                </div>
+                <div class="mt-4 col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-info float-left">Save Profile</button>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="/" class="btn btn-warning profile-button float-right">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
