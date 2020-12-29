@@ -2,9 +2,11 @@ package com.kyurao.atio.domain.user;
 
 import com.kyurao.atio.domain.user.enums.UserRole;
 import com.kyurao.atio.domain.user.enums.UserStatus;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Parent;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,40 +15,56 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.kyurao.atio.domain.user.enums.UserStatus.*;
+
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(of = {"email"})
 @Embeddable
 public class Account implements UserDetails {
 
-    @EqualsAndHashCode.Include
-    @Column(unique = true, nullable = false)
-    private String username;
+    @Column(name = "EMAIL", nullable = false, unique = true)
+    private String email;
 
-    @Column(nullable = false)
+    @Column(name = "PASSWORD_HASH",nullable = false)
     private String password;
 
-    @ElementCollection
-    @CollectionTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") })
-    private Set<UserRole> roles = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS",nullable = false)
+    private UserStatus status;
+
+    @Column(name = "ACTIVATION_CODE")
+    private String activationCode;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserStatus status = UserStatus.CREATED;
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "USER_ROLES",
+            joinColumns = @JoinColumn(name = "USER_ID",referencedColumnName = "ID"))
+    private Set<UserRole> roles = new HashSet<>();
+
+    @Setter(AccessLevel.PROTECTED)
+    @Parent
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return this.roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.status != DELETED;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return status != UserStatus.BANNED;
+        return this.status != BANNED;
     }
 
     @Override
@@ -56,6 +74,6 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status == UserStatus.ACTIVE;
+        return this.status == ACTIVE;
     }
 }

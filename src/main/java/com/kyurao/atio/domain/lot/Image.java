@@ -14,8 +14,9 @@ import javax.persistence.Embeddable;
 public class Image {
 
     @Column(nullable = false)
-    private String originName;
+    private String originalName;
 
     @Column(nullable = false)
     private String path;
+
 }

@@ -3,6 +3,7 @@ package com.kyurao.atio.domain.lot;
 import com.kyurao.atio.domain.common.IdHolder;
 import com.kyurao.atio.domain.common.Location;
 import com.kyurao.atio.domain.lot.enums.LotState;
+import com.kyurao.atio.domain.lot.enums.LotStatus;
 import com.kyurao.atio.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,16 +26,17 @@ public class Lot extends IdHolder {
 
     private Integer amount;
 
-    private Instant startOfSale;
-
-    private Instant endOfSale;
-
     private BigDecimal startPrice = new BigDecimal(0);
 
     private BigDecimal price = new BigDecimal(0);
 
     private BigDecimal buyNow;
 
+    @AttributeOverrides({
+            @AttributeOverride(name = "country", column = @Column(name = "COUNTRY", nullable = false)),
+            @AttributeOverride(name = "region", column = @Column(name = "REGION", nullable = false)),
+            @AttributeOverride(name = "city", column = @Column(name = "CITY", nullable = false))
+    } )
     private Location location;
 
     @ManyToOne(optional = false)
@@ -44,6 +46,10 @@ public class Lot extends IdHolder {
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private LotState state = LotState.NEW;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private LotStatus status = LotStatus.ACTIVE;
 
     @ElementCollection
     @CollectionTable
